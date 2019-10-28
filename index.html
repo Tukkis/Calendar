@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>Calender</title>
 </head>
 <body>
@@ -21,9 +22,35 @@
 const header = document.querySelector('.header');
 const date = document.querySelector('.date');
 const clock = document.querySelector('.clock');
-const paiva = new Date();
+let paiva = new Date();
 
-date.innerHTML = paiva.getDay+"/"+paiva.getMonth+"/"+paiva.getUTCFullYear;
+let weekday = new Array(7);
+weekday[0] = "Sunday";
+weekday[1] = "Monday";
+weekday[2] = "Tuesday";
+weekday[3] = "Wednesday";
+weekday[4] = "Thursday";
+weekday[5] = "Friday";
+weekday[6] = "Saturday";
+let n = weekday[paiva.getDay()];
+
+setInterval(function(){
+    let paiva = new Date();
+
+let weekday = new Array(7);
+weekday[0] = "Sunday";
+weekday[1] = "Monday";
+weekday[2] = "Tuesday";
+weekday[3] = "Wednesday";
+weekday[4] = "Thursday";
+weekday[5] = "Friday";
+weekday[6] = "Saturday";
+let n = weekday[paiva.getDay()];
+date.innerHTML = paiva.getDate()+"/"+(paiva.getMonth()+1)+"/"+paiva.getUTCFullYear();
+clock.innerHTML = n+" "+paiva.getUTCHours()+"."+paiva.getUTCMinutes();}, 1000)
+
+date.innerHTML = paiva.getDate()+"/"+(paiva.getMonth()+1)+"/"+paiva.getUTCFullYear();
+clock.innerHTML = n+" "+paiva.getUTCHours()+"."+paiva.getUTCMinutes();
 
 </script>
 </html>
