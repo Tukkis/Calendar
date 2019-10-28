@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calender</title>
+</head>
+<body>
+    <div class="header">
+        <h1 class="date">
+
+        </h1>
+        <h1 class="clock">
+
+        </h1>
+    </div>
+</body>
+<script>
+
+const header = document.querySelector('.header');
+const date = document.querySelector('.date');
+const clock = document.querySelector('.clock');
+const paiva = new Date();
+
+date.innerHTML = paiva.getDay+"/"+paiva.getMonth+"/"+paiva.getUTCFullYear;
+
+</script>
+</html>
