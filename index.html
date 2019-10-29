@@ -32,25 +32,22 @@ weekday[3] = "Wednesday";
 weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
-let n = weekday[paiva.getDay()];
 
-setInterval(function(){
-    let paiva = new Date();
+function checkTime(time){
+    if (time<10) {time = "0"+time};
+    return time;
+}
 
-let weekday = new Array(7);
-weekday[0] = "Sunday";
-weekday[1] = "Monday";
-weekday[2] = "Tuesday";
-weekday[3] = "Wednesday";
-weekday[4] = "Thursday";
-weekday[5] = "Friday";
-weekday[6] = "Saturday";
-let n = weekday[paiva.getDay()];
-date.innerHTML = paiva.getDate()+"/"+(paiva.getMonth()+1)+"/"+paiva.getUTCFullYear();
-clock.innerHTML = n+" "+paiva.getUTCHours()+"."+paiva.getUTCMinutes();}, 1000)
+function time(){
+    date.innerHTML = checkTime(paiva.getDate())
+    +"/"+checkTime(paiva.getMonth()+1)
+    +"/"+paiva.getFullYear;
+    clock.innerHTML = weekday[paiva.getDay()]
+    +" "+checkTime(paiva.getMinutes())
+    +"."+checkTime(paiva.getSeconds());
+    let timer = setTimeout(startTime, 500);
+}
 
-date.innerHTML = paiva.getDate()+"/"+(paiva.getMonth()+1)+"/"+paiva.getUTCFullYear();
-clock.innerHTML = n+" "+paiva.getUTCHours()+"."+paiva.getUTCMinutes();
-
+window.addEventListener('load', time())
 </script>
 </html>
