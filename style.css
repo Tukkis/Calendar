@@ -49,9 +49,14 @@ body {
 }
 
 #days > h4 {
+    height: 1.4em;
     font-size: 1.5em;
     background-color: white;
+    text-align: center;
+    padding-top: 0.17em;
 }
+
+
 
 #controls {
     margin: 2em auto 2em auto;
@@ -69,8 +74,13 @@ body {
 
 #selector {
     display: inline-block;
+    margin-bottom: 5px;
 }
 
 #selector > p {
     display: block;
+}
+
+.today {
+    background-color: cornflowerblue !important;
 }
