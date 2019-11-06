@@ -39,14 +39,16 @@ function checkTime(time){
 }
 
 function time(){
+    let paiva = new Date();
     date.innerHTML = checkTime(paiva.getDate())
     +"/"+checkTime(paiva.getMonth()+1)
-    +"/"+paiva.getFullYear;
+    +"/"+paiva.getFullYear();
     clock.innerHTML = weekday[paiva.getDay()]
     +" "+checkTime(paiva.getMinutes())
     +"."+checkTime(paiva.getSeconds());
-    let timer = setTimeout(startTime, 500);
 }
+
+setInterval(time, 1000);
 
 window.addEventListener('load', time())
 </script>
