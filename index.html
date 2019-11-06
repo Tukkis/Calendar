@@ -8,18 +8,34 @@
     <title>Calender</title>
 </head>
 <body>
-    <div class="header">
-        <h1 class="date">
-
-        </h1>
-        <h1 class="clock">
-
-        </h1>
+    <div class="calendar">
+        <h1 id="month">Date</h1>
+        <div id="headings">
+            <h3 id="monday">Mon</h3>
+            <h3 id="tuesday">Tue</h3>
+            <h3 id="wednesday">Wed</h3>
+            <h3 id="thursday">Thu</h3>
+            <h3 id="friday">Fri</h3>
+            <h3 id="saturday">Sat</h3>
+            <h3 id="sunday">Sun</h3>
+        </div>
+        <div id="days">
+            <h4>1</h4>
+        </div>
+        <div id="controls">
+            <button id="previous">Previous</button>
+            <button id="next">Next</button>
+        </div>
+        <span id="selector">
+            <p>Jump To</p>
+            <input type="text" id="jumpdate">
+            <input type="text" id="jumpyear">
+        </span>
     </div>
 </body>
 <script>
 
-const header = document.querySelector('.header');
+const calendar = document.querySelector('.calendar');
 const date = document.querySelector('.date');
 const clock = document.querySelector('.clock');
 let paiva = new Date();
@@ -38,17 +54,19 @@ function checkTime(time){
     return time;
 }
 
-function time(){
-    let paiva = new Date();
-    date.innerHTML = checkTime(paiva.getDate())
-    +"/"+checkTime(paiva.getMonth()+1)
-    +"/"+paiva.getFullYear();
-    clock.innerHTML = weekday[paiva.getDay()]
-    +" "+checkTime(paiva.getMinutes())
-    +"."+checkTime(paiva.getSeconds());
-}
+// function time(){
+//     let paiva = new Date();
+//     date.innerHTML = checkTime(paiva.getDate())
+//     +"/"+checkTime(paiva.getMonth()+1)
+//     +"/"+paiva.getFullYear();
+//     clock.innerHTML = weekday[paiva.getDay()]
+//     +" "+checkTime(paiva.getMinutes())
+//     +"."+checkTime(paiva.getSeconds());
+// }
 
-setInterval(time, 1000);
+// setInterval(time, 1000);
+
+
 
 window.addEventListener('load', time())
 </script>
