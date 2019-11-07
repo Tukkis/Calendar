@@ -10,6 +10,7 @@ let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 const previousButton = document.getElementById('previous');
 const nextButton = document.getElementById('next');
+const body = document.getElementsByTagName("BODY")[0];
 
 //Populating month and year when the page is loaded
 
@@ -84,8 +85,27 @@ function jump() {
     fillMonthAndYear();
 }
 
+let lastActive = '';
+
 function addEvent() {
-    console.log(this)
+    console.log(this.offsetLeft, this.offsetWidth);
+    this.classList.add('active');
+    if(this != lastActive && lastActive != ''){
+        lastActive.classList.remove('active');
+        }
+    lastActive = this;
+    let node = document.createElement('form');
+    node.innerHTML =
+    `<h5>${this.id}. of ${months[currentMonth]}</h5>
+    </br>
+    <input/>`;
+    node.setAttribute('id', 'eventform');
+    body.appendChild(node);
+    node.style.position = 'absolute';
+    node.style.top = (this.offsetTop + calendar.offsetTop + days.offsetTop + ((this.offsetHeight - node.offsetHeight) / 2)) + 'px';
+    node.style.left = (this.offsetLeft + calendar.offsetLeft + days.offsetLeft + ((this.offsetWidth - node.offsetWidth) / 2)) + 'px';
+    node.addEventListener('mouseleave', function(){node.remove()});
+    node.addEventListener('mouseenter', function(){node.classList.add('currentform')}); 
 }
 
 

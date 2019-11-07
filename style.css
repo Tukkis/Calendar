@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 body {
@@ -9,7 +10,7 @@ body {
 }
 
 .calendar {
-    margin: 20vh auto 0 auto;
+    margin: 2vh auto 0 auto;
     max-width: 46%;
     border: 0px solid;
     border-radius: 10px;
@@ -54,6 +55,22 @@ body {
     background-color: white;
     text-align: center;
     padding-top: 0.17em;
+}
+
+#days > h4.active {
+    background-color: rgba(238, 255, 0, 0.664);
+    border: 2px solid black;
+}
+
+#eventform {
+    background-color: white;
+    box-shadow: 0.3em 0.3em 0.1em gray;
+    padding: 3em;
+    transition: all 0.3s;
+}
+
+.currentform {
+    transform: scale(2);
 }
 
 #controls {
