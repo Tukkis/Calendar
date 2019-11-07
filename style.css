@@ -9,7 +9,7 @@ body {
 }
 
 .calendar {
-    margin: 0 auto 0 auto;
+    margin: 20vh auto 0 auto;
     max-width: 46%;
     border: 0px solid;
     border-radius: 10px;
@@ -72,11 +72,15 @@ body {
 
 #selector {
     display: inline-block;
-    margin-bottom: 5px;
+    margin: 0 0 1em 2em;
 }
 
 #selector > p {
     display: block;
+}
+
+#selector > * {
+    font-size: 1.7em;
 }
 
 .today {

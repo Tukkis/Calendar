@@ -1,3 +1,5 @@
+//Getting elements from the html
+
 const selectYear = document.getElementById("yearcontrol");
 const selectMonth = document.getElementById("monthcontrol");
 const calendar = document.querySelector('.calendar');
@@ -9,6 +11,7 @@ let currentYear = today.getFullYear();
 const previousButton = document.getElementById('previous');
 const nextButton = document.getElementById('next');
 
+//Populating month and year when the page is loaded
 
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function fillMonthAndYear() {
@@ -16,6 +19,8 @@ function fillMonthAndYear() {
 }
 
 fillMonthAndYear();
+
+//Populating the calendar when the page is loaded
 
 function daysInMonth(iMonth, iYear) {
     return 32 - new Date(iYear, iMonth, 32).getDate();
@@ -36,6 +41,8 @@ function populateCalendar(iMonth, iYear) {
     for (let i = 0; i < daysI; i++) {
         let node = document.createElement('h4');
         let textnode = document.createTextNode(i + 1);
+        node.setAttribute("id", i+1);
+        node.addEventListener('click', addEvent);
         node.appendChild(textnode);
         days.appendChild(node);
         if ((i + 1) == today.getDate() && currentMonth == today.getMonth() && currentYear == today.getFullYear()) {
@@ -45,11 +52,6 @@ function populateCalendar(iMonth, iYear) {
 }
 
 populateCalendar(currentMonth, currentYear);
-
-function checkTime(time) {
-    if (time < 10) { time = "0" + time };
-    return time;
-}
 
 function previousMonth() {
     if (currentMonth > 0) {
@@ -80,6 +82,10 @@ function jump() {
     currentMonth = parseInt(selectMonth.value);
     populateCalendar(currentMonth, currentYear);
     fillMonthAndYear();
+}
+
+function addEvent() {
+    console.log(this)
 }
 
 
