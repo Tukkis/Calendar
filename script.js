@@ -149,7 +149,7 @@ function addEvent() {
     node.style.position = 'absolute';
     node.style.top = (this.offsetTop + calendar.offsetTop + days.offsetTop + this.offsetHeight) + 'px';
     node.style.left = (this.offsetLeft + calendar.offsetLeft + days.offsetLeft + ((this.offsetWidth - node.offsetWidth) / 2)) + 'px';
-    // node.addEventListener('mouseleave', function () { node.remove() });
+    node.addEventListener('mouseleave', function () { node.remove() });
     node.addEventListener('mouseenter', function () { node.classList.add('currentform') });
 }
 
