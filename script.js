@@ -39,82 +39,120 @@ function populateCalendar(iMonth, iYear) {
         for (let i = 0; i < 6; i++) {
             let node = document.createElement('p');
             days.appendChild(node);
-            }
-        } else {
-            for (let i = 2; i <= filler; i++) {
-                let node = document.createElement('p');
-                days.appendChild(node);
-            }
         }
-        for (let i = 0; i < daysI; i++) {
-            let node = document.createElement('h4');
-            let textnode = document.createTextNode(i + 1);
-            node.setAttribute("id", i + 1);
-            node.addEventListener('click', addEvent);
-            node.appendChild(textnode);
+    } else {
+        for (let i = 2; i <= filler; i++) {
+            let node = document.createElement('p');
             days.appendChild(node);
-            if ((i + 1) == today.getDate() && currentMonth == today.getMonth() && currentYear == today.getFullYear()) {
-                node.classList.add('today');
-            }
         }
     }
+    for (let i = 0; i < daysI; i++) {
+        let node = document.createElement('h4');
+        let textnode = document.createTextNode(i + 1);
+        node.setAttribute("id", i + 1);
+        node.addEventListener('click', addEvent);
+        node.appendChild(textnode);
+        days.appendChild(node);
+        if ((i + 1) == today.getDate() && currentMonth == today.getMonth() && currentYear == today.getFullYear()) {
+            node.classList.add('today');
+        }
+    }
+}
 
+populateCalendar(currentMonth, currentYear);
+
+function previousMonth() {
+    if (currentMonth > 0) {
+        currentMonth = currentMonth - 1;
+    }
+    else {
+        currentMonth = 11;
+        currentYear = currentYear - 1;
+    }
     populateCalendar(currentMonth, currentYear);
+    fillMonthAndYear();
+}
 
-    function previousMonth() {
-        if (currentMonth > 0) {
-            currentMonth = currentMonth - 1;
-        }
-        else {
-            currentMonth = 11;
-            currentYear = currentYear - 1;
-        }
-        populateCalendar(currentMonth, currentYear);
-        fillMonthAndYear();
+function nextMonth() {
+    if (currentMonth < 11) {
+        currentMonth = currentMonth + 1;
     }
-
-    function nextMonth() {
-        if (currentMonth < 11) {
-            currentMonth = currentMonth + 1;
-        }
-        else {
-            currentMonth = 0;
-            currentYear = currentYear + 1;
-        }
-        populateCalendar(currentMonth, currentYear);
-        fillMonthAndYear();
+    else {
+        currentMonth = 0;
+        currentYear = currentYear + 1;
     }
+    populateCalendar(currentMonth, currentYear);
+    fillMonthAndYear();
+}
 
-    function jump() {
-        currentYear = parseInt(selectYear.value);
-        currentMonth = parseInt(selectMonth.value);
-        populateCalendar(currentMonth, currentYear);
-        fillMonthAndYear();
+function jump() {
+    currentYear = parseInt(selectYear.value);
+    currentMonth = parseInt(selectMonth.value);
+    populateCalendar(currentMonth, currentYear);
+    fillMonthAndYear();
+}
+
+let lastActive = '';
+
+function stageCreator() {
+    let stages = '';
+    for(let i=0; i<3; i++){
+        stages += `<div class="stage">To do</div>`;
     }
+    return stages;
+}
 
-    let lastActive = '';
-
-    function addEvent() {
-        console.log(this.offsetLeft, this.offsetWidth);
-        this.classList.add('active');
-        if (this != lastActive && lastActive != '') {
-            lastActive.classList.remove('active');
-        }
-        lastActive = this;
-        let node = document.createElement('form');
-        node.innerHTML =
-            `<h5>${this.id}. of ${months[currentMonth]}</h5>
+function addEvent() {
+    this.classList.add('active');
+    if (this != lastActive && lastActive != '') {
+        lastActive.classList.remove('active');
+    }
+    lastActive = this;
+    let node = document.createElement('form');
+    node.innerHTML =
+        `<h5>${this.id}. of ${months[currentMonth]}</h5>
     </br>
-    <input/>`;
-        node.setAttribute('id', 'eventform');
-        body.appendChild(node);
-        node.style.position = 'absolute';
-        node.style.top = (this.offsetTop + calendar.offsetTop + days.offsetTop + ((this.offsetHeight - node.offsetHeight) / 2)) + 'px';
-        node.style.left = (this.offsetLeft + calendar.offsetLeft + days.offsetLeft + ((this.offsetWidth - node.offsetWidth) / 2)) + 'px';
-        node.addEventListener('mouseleave', function () { node.remove() });
-        node.addEventListener('mouseenter', function () { node.classList.add('currentform') });
-    }
+    <div id="schedulecontainer">
+        <div class="time start-730">7:30</div>${stageCreator()}
+        <div class="time start-800">8:00</div>${stageCreator()}
+        <div class="time start-830">8:30</div>${stageCreator()}
+        <div class="time start-900">9:00</div>${stageCreator()}
+        <div class="time start-930">9:30</div>${stageCreator()}
+        <div class="time start-1000">10:00</div>${stageCreator()}
+        <div class="time start-1030">10:30</div>${stageCreator()}
+        <div class="time start-1100">11:00</div>${stageCreator()}
+        <div class="time start-1130">11:30</div>${stageCreator()}
+        <div class="time start-1200">12:00</div>${stageCreator()}
+        <div class="time start-1230">12:30</div>${stageCreator()}
+        <div class="time start-1300">13:00</div>${stageCreator()}
+        <div class="time start-1330">13:30</div>${stageCreator()}
+        <div class="time start-1400">14:00</div>${stageCreator()}
+        <div class="time start-1430">14:30</div>${stageCreator()}
+        <div class="time start-1500">15:00</div>${stageCreator()}
+        <div class="time start-1530">15:30</div>${stageCreator()}
+        <div class="time start-1600">16:00</div>${stageCreator()}
+        <div class="time start-1630">16:30</div>${stageCreator()}
+        <div class="time start-1700">17:00</div>${stageCreator()}
+        <div class="time start-1730">17:30</div>${stageCreator()}
+        <div class="time start-1800">18:00</div>${stageCreator()}
+        <div class="time start-1830">18:30</div>${stageCreator()}
+        <div class="time start-1900">19:00</div>${stageCreator()}
+        <div class="time start-1930">19:30</div>${stageCreator()}
+        <div class="time start-2000">20:00</div>${stageCreator()}
+        <div class="time start-2030">20:30</div>${stageCreator()}
+        <div class="time start-2100">21:00</div>${stageCreator()}
+        <div class="time start-2130">21:30</div>${stageCreator()}
+        <div class="time start-2200">22:00</div>${stageCreator()}
+    </div>`;
+    node.setAttribute('id', 'eventform');
+    body.appendChild(node);
+    node.style.position = 'absolute';
+    node.style.top = (this.offsetTop + calendar.offsetTop + days.offsetTop + this.offsetHeight) + 'px';
+    node.style.left = (this.offsetLeft + calendar.offsetLeft + days.offsetLeft + ((this.offsetWidth - node.offsetWidth) / 2)) + 'px';
+    // node.addEventListener('mouseleave', function () { node.remove() });
+    node.addEventListener('mouseenter', function () { node.classList.add('currentform') });
+}
 
 
-    previousButton.addEventListener('click', previousMonth);
-    nextButton.addEventListener('click', nextMonth);
+previousButton.addEventListener('click', previousMonth);
+nextButton.addEventListener('click', nextMonth);
