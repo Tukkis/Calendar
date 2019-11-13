@@ -43,7 +43,7 @@ body {
 #days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background-color: rgb(211,211,211);
+    background-color: rgb(211, 211, 211);
     grid-gap: 1px;
     border: 2px solid rgb(211,211,211);
     border-top: 0;

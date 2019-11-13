@@ -28,20 +28,17 @@ function daysInMonth(iMonth, iYear) {
 }
 
 function populateCalendar(iMonth, iYear) {
-    let firstDay = (new Date(iYear, iMonth)).getDay();
+    let filler = (new Date(iYear, iMonth)).getDay();
     let daysI = daysInMonth(iMonth, iYear);
     days.innerHTML = "";
-    let todai = new Date();
-    todai.setFullYear(iYear);
-    todai.setMonth(iMonth);
-    let filler = todai.getDay();
+    console.log(filler);
     if (filler == 0) {
         for (let i = 0; i < 6; i++) {
             let node = document.createElement('p');
             days.appendChild(node);
         }
     } else {
-        for (let i = 2; i <= filler; i++) {
+        for (let i = 1; i < filler; i++) {
             let node = document.createElement('p');
             days.appendChild(node);
         }
@@ -62,11 +59,15 @@ function populateCalendar(iMonth, iYear) {
 
 populateCalendar(currentMonth, currentYear);
 
-function previousMonth() {
+function oldFormRemove(){
     let oldForm = document.getElementById('eventform');
     if (oldForm != null) {
         oldForm.remove();
     }
+}
+
+function previousMonth() {
+    oldFormRemove();
     if (currentMonth > 0) {
         currentMonth = currentMonth - 1;
     }
@@ -79,10 +80,7 @@ function previousMonth() {
 }
 
 function nextMonth() {
-    let oldForm = document.getElementById('eventform');
-    if (oldForm != null) {
-        oldForm.remove();
-    }
+    oldFormRemove();
     if (currentMonth < 11) {
         currentMonth = currentMonth + 1;
     }
@@ -95,10 +93,7 @@ function nextMonth() {
 }
 
 function jump() {
-    let oldForm = document.getElementById('eventform');
-    if (oldForm != null) {
-        oldForm.remove();
-    }
+    oldFormRemove();
     currentYear = parseInt(selectYear.value);
     currentMonth = parseInt(selectMonth.value);
     populateCalendar(currentMonth, currentYear);
@@ -106,7 +101,7 @@ function jump() {
 }
 
 let lastActive = '';
-
+let currentForm = '';
 function stageCreator() {
     let stages = '';
     for (let i = 0; i < 3; i++) {
@@ -116,10 +111,7 @@ function stageCreator() {
 }
 
 function addEvent() {
-    let oldForm = document.getElementById('eventform');
-    if (oldForm != null) {
-        oldForm.remove();
-    }
+    oldFormRemove();
     this.classList.add('active');
     if (this != lastActive && lastActive != '') {
         lastActive.classList.remove('active');
@@ -167,10 +159,17 @@ function addEvent() {
     node.style.position = 'absolute';
     node.style.top = (this.offsetTop + calendar.offsetTop + days.offsetTop + this.offsetHeight) + 'px';
     node.style.left = (this.offsetLeft + calendar.offsetLeft + days.offsetLeft + ((this.offsetWidth - node.offsetWidth) / 2)) + 'px';
-    window.addEventListener('resize', function(){})
+
+    currentForm = node;
+
     document.getElementById('formbutton').addEventListener('click', function () { node.remove() });
-    // node.addEventListener('mouseenter', function () { node.classList.add('currentform') });
 }
 
+function formMover() {
+    currentForm.style.top = (lastActive.offsetTop + calendar.offsetTop + days.offsetTop + lastActive.offsetHeight) + 'px';
+    currentForm.style.left = (lastActive.offsetLeft + calendar.offsetLeft + days.offsetLeft + ((lastActive.offsetWidth - currentForm.offsetWidth) / 2)) + 'px';
+}
+
+window.addEventListener('resize', formMover);
 previousButton.addEventListener('click', previousMonth);
 nextButton.addEventListener('click', nextMonth);
