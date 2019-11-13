@@ -69,6 +69,20 @@ body {
     transition: all 0.15s;
 }
 
+#eventform > h5 {
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+#eventform > button {
+    float: right;
+    background-color: white;
+    color: blue;
+    border: 0;
+    font-weight: bold;
+    padding: 2px 5px 2px 5px;
+}
+
 #schedulecontainer {
     display: grid;
     grid-gap: 0.2rem;
@@ -107,7 +121,12 @@ body {
         "#time start-2200 .stage .stage .stage";
 }
 
-.currentform {
+#schedulecontainer > * {
+    font-size: 1.2em;
+    line-height: 1.1em;
+}
+
+#currentform {
     transform: scale(1);
 }
 

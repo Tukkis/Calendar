@@ -50,6 +50,7 @@ function populateCalendar(iMonth, iYear) {
         let node = document.createElement('h4');
         let textnode = document.createTextNode(i + 1);
         node.setAttribute("id", i + 1);
+        node.setAttribute("data-day", i + 1);
         node.addEventListener('click', addEvent);
         node.appendChild(textnode);
         days.appendChild(node);
@@ -62,6 +63,10 @@ function populateCalendar(iMonth, iYear) {
 populateCalendar(currentMonth, currentYear);
 
 function previousMonth() {
+    let oldForm = document.getElementById('eventform');
+    if (oldForm != null) {
+        oldForm.remove();
+    }
     if (currentMonth > 0) {
         currentMonth = currentMonth - 1;
     }
@@ -74,6 +79,10 @@ function previousMonth() {
 }
 
 function nextMonth() {
+    let oldForm = document.getElementById('eventform');
+    if (oldForm != null) {
+        oldForm.remove();
+    }
     if (currentMonth < 11) {
         currentMonth = currentMonth + 1;
     }
@@ -86,6 +95,10 @@ function nextMonth() {
 }
 
 function jump() {
+    let oldForm = document.getElementById('eventform');
+    if (oldForm != null) {
+        oldForm.remove();
+    }
     currentYear = parseInt(selectYear.value);
     currentMonth = parseInt(selectMonth.value);
     populateCalendar(currentMonth, currentYear);
@@ -96,13 +109,17 @@ let lastActive = '';
 
 function stageCreator() {
     let stages = '';
-    for(let i=0; i<3; i++){
+    for (let i = 0; i < 3; i++) {
         stages += `<div class="stage">To do</div>`;
     }
     return stages;
 }
 
 function addEvent() {
+    let oldForm = document.getElementById('eventform');
+    if (oldForm != null) {
+        oldForm.remove();
+    }
     this.classList.add('active');
     if (this != lastActive && lastActive != '') {
         lastActive.classList.remove('active');
@@ -111,6 +128,7 @@ function addEvent() {
     let node = document.createElement('form');
     node.innerHTML =
         `<h5>${this.id}. of ${months[currentMonth]}</h5>
+        <button type="button" id="formbutton">X</button>
     </br>
     <div id="schedulecontainer">
         <div class="time start-730">7:30</div>${stageCreator()}
@@ -149,10 +167,10 @@ function addEvent() {
     node.style.position = 'absolute';
     node.style.top = (this.offsetTop + calendar.offsetTop + days.offsetTop + this.offsetHeight) + 'px';
     node.style.left = (this.offsetLeft + calendar.offsetLeft + days.offsetLeft + ((this.offsetWidth - node.offsetWidth) / 2)) + 'px';
-    node.addEventListener('mouseleave', function () { node.remove() });
-    node.addEventListener('mouseenter', function () { node.classList.add('currentform') });
+    window.addEventListener('resize', function(){})
+    document.getElementById('formbutton').addEventListener('click', function () { node.remove() });
+    // node.addEventListener('mouseenter', function () { node.classList.add('currentform') });
 }
-
 
 previousButton.addEventListener('click', previousMonth);
 nextButton.addEventListener('click', nextMonth);
