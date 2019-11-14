@@ -12,6 +12,7 @@ const previousButton = document.getElementById('previous');
 const nextButton = document.getElementById('next');
 const body = document.getElementsByTagName("BODY")[0];
 
+let savedEvents = [];
 //Populating month and year when the page is loaded
 
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -27,7 +28,15 @@ function daysInMonth(iMonth, iYear) {
     return 32 - new Date(iYear, iMonth, 32).getDate();
 }
 
+function oldFormRemove(){
+    let oldForm = document.getElementById('eventform');
+    if (oldForm != null) {
+        oldForm.remove();
+    }
+}
+
 function populateCalendar(iMonth, iYear) {
+    oldFormRemove();
     let filler = (new Date(iYear, iMonth)).getDay();
     let daysI = daysInMonth(iMonth, iYear);
     days.innerHTML = "";
@@ -59,15 +68,7 @@ function populateCalendar(iMonth, iYear) {
 
 populateCalendar(currentMonth, currentYear);
 
-function oldFormRemove(){
-    let oldForm = document.getElementById('eventform');
-    if (oldForm != null) {
-        oldForm.remove();
-    }
-}
-
 function previousMonth() {
-    oldFormRemove();
     if (currentMonth > 0) {
         currentMonth = currentMonth - 1;
     }
@@ -80,7 +81,6 @@ function previousMonth() {
 }
 
 function nextMonth() {
-    oldFormRemove();
     if (currentMonth < 11) {
         currentMonth = currentMonth + 1;
     }
@@ -93,7 +93,6 @@ function nextMonth() {
 }
 
 function jump() {
-    oldFormRemove();
     currentYear = parseInt(selectYear.value);
     currentMonth = parseInt(selectMonth.value);
     populateCalendar(currentMonth, currentYear);
@@ -102,12 +101,43 @@ function jump() {
 
 let lastActive = '';
 let currentForm = '';
-function stageCreator() {
+function optionCreator() {
     let stages = '';
-    for (let i = 0; i < 3; i++) {
-        stages += `<div class="stage">To do</div>`;
+    for (let i = 1; i < 49; i++) {
+        let tracker = 0;
+        tracker += i/2;
+        if (tracker % 1 === 0){
+            stages += `<option data-time="${tracker}:00">${tracker}:00</option>`
+        } else {
+            tracker -= 0.5;
+            stages += `<option ${tracker}:00>${tracker}:30</option>`
+        }
     }
     return stages;
+}
+
+function saveEvent() {
+    const formS= document.getElementById('timecontrolstart');
+    const formE= document.getElementById('timecontrolend');
+    const eventI = document.getElementById('timeinput');
+    const dayI = document.querySelector('.active');
+    const stringI = eventI.value;
+    const timeE = formE.value;
+    const timeS = formS.value;
+    const dateI = dayI.id;
+    if(stringI === ''){
+        window.alert("Please fill the eventform");
+        return;
+    }
+    savedEvents.push({
+        'year' : currentYear,
+        'month' : currentMonth,
+        'day' : dateI,
+        'start' : timeS,
+        'end' : timeE,
+        'event' : stringI
+    }) 
+    populateCalendar(currentMonth, currentYear);
 }
 
 function addEvent() {
@@ -119,41 +149,27 @@ function addEvent() {
     lastActive = this;
     let node = document.createElement('form');
     node.innerHTML =
-        `<h5>${this.id}. of ${months[currentMonth]}</h5>
-        <button type="button" id="formbutton">X</button>
-    </br>
-    <div id="schedulecontainer">
-        <div class="time start-730">7:30</div>${stageCreator()}
-        <div class="time start-800">8:00</div>${stageCreator()}
-        <div class="time start-830">8:30</div>${stageCreator()}
-        <div class="time start-900">9:00</div>${stageCreator()}
-        <div class="time start-930">9:30</div>${stageCreator()}
-        <div class="time start-1000">10:00</div>${stageCreator()}
-        <div class="time start-1030">10:30</div>${stageCreator()}
-        <div class="time start-1100">11:00</div>${stageCreator()}
-        <div class="time start-1130">11:30</div>${stageCreator()}
-        <div class="time start-1200">12:00</div>${stageCreator()}
-        <div class="time start-1230">12:30</div>${stageCreator()}
-        <div class="time start-1300">13:00</div>${stageCreator()}
-        <div class="time start-1330">13:30</div>${stageCreator()}
-        <div class="time start-1400">14:00</div>${stageCreator()}
-        <div class="time start-1430">14:30</div>${stageCreator()}
-        <div class="time start-1500">15:00</div>${stageCreator()}
-        <div class="time start-1530">15:30</div>${stageCreator()}
-        <div class="time start-1600">16:00</div>${stageCreator()}
-        <div class="time start-1630">16:30</div>${stageCreator()}
-        <div class="time start-1700">17:00</div>${stageCreator()}
-        <div class="time start-1730">17:30</div>${stageCreator()}
-        <div class="time start-1800">18:00</div>${stageCreator()}
-        <div class="time start-1830">18:30</div>${stageCreator()}
-        <div class="time start-1900">19:00</div>${stageCreator()}
-        <div class="time start-1930">19:30</div>${stageCreator()}
-        <div class="time start-2000">20:00</div>${stageCreator()}
-        <div class="time start-2030">20:30</div>${stageCreator()}
-        <div class="time start-2100">21:00</div>${stageCreator()}
-        <div class="time start-2130">21:30</div>${stageCreator()}
-        <div class="time start-2200">22:00</div>${stageCreator()}
-    </div>`;
+        `
+        <div class="eventformtopcontainer">
+            <h5 id='eventformday'>${this.id}. of ${months[currentMonth]}</h5>
+            <button type="button" id="formbutton">X</button>
+        </div>
+        </br>
+        <div>
+            <label>From:
+                <select class="options" name="timecontrol" id="timecontrolstart">
+                    ${optionCreator()}
+                </select>
+            </label>
+            <label>To:
+                <select class="options" name="timecontrol" id="timecontrolend">
+                    ${optionCreator()}
+                </select>
+            </label>
+        </div>
+        <input type="text" id="timeinput" placeholder="Add event here" />
+        <button type="button" class="eventsubmitbutton" onClick="saveEvent()">Add event</button>
+        `
     node.setAttribute('id', 'eventform');
     body.appendChild(node);
     node.style.position = 'absolute';
