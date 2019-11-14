@@ -67,15 +67,16 @@ body {
     box-shadow: 0.3em 0.3em 0.1em gray;
     padding: 1em;
     transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
 }
 
-#eventform > h5 {
-    display: inline-block;
-    font-size: 1.5em;
+.eventformtopcontainer {
+    display: flex;
+    justify-content: space-between;
 }
 
-#eventform > button {
-    float: right;
+.eventformtopcontainer > button {
     background-color: white;
     color: blue;
     border: 0;
@@ -83,47 +84,13 @@ body {
     padding: 2px 5px 2px 5px;
 }
 
-#schedulecontainer {
-    display: grid;
-    grid-gap: 0.2rem;
-    
-    grid-template-columns: 5rem repeat(3, 1fr); 
-    grid-template-areas:
-        "#time start-730 .stage .stage .stage"
-        "#time start-800 .stage .stage .stage"
-        "#time start-830 .stage .stage .stage"
-        "#time start-900 .stage .stage .stage"
-        "#time start-930 .stage .stage .stage"
-        "#time start-1000 .stage .stage .stage"
-        "#time start-1030 .stage .stage .stage"
-        "#time start-1100 .stage .stage .stage"
-        "#time start-1130 .stage .stage .stage"
-        "#time start-1200 .stage .stage .stage"
-        "#time start-1230 .stage .stage .stage"
-        "#time start-1300 .stage .stage .stage"
-        "#time start-1330 .stage .stage .stage"
-        "#time start-1400 .stage .stage .stage"
-        "#time start-1430 .stage .stage .stage"
-        "#time start-1500 .stage .stage .stage"
-        "#time start-1530 .stage .stage .stage"
-        "#time start-1600 .stage .stage .stage"
-        "#time start-1630 .stage .stage .stage"
-        "#time start-1700 .stage .stage .stage"
-        "#time start-1730 .stage .stage .stage"
-        "#time start-1800 .stage .stage .stage"
-        "#time start-1830 .stage .stage .stage"
-        "#time start-1900 .stage .stage .stage"
-        "#time start-1930 .stage .stage .stage"
-        "#time start-2000 .stage .stage .stage"
-        "#time start-2030 .stage .stage .stage"
-        "#time start-2100 .stage .stage .stage"
-        "#time start-2130 .stage .stage .stage"
-        "#time start-2200 .stage .stage .stage";
+#eventform > .options {
+    display: inline-block;
+    font-size: 1.5em;
 }
 
-#schedulecontainer > * {
-    font-size: 1.2em;
-    line-height: 1.1em;
+#eventform > .eventsubmitbutton {
+    margin: 1em 30% 1em 30%;
 }
 
 #currentform {
