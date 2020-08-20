@@ -129,6 +129,10 @@ function saveEvent() {
         window.alert("Please fill the eventform");
         return;
     }
+    if(timeE <= timeS){
+        window.alert("Invalid start/end time");
+        return;
+    }
     savedEvents.push({
         'year' : currentYear,
         'month' : currentMonth,
@@ -139,6 +143,7 @@ function saveEvent() {
     }) 
     populateCalendar(currentMonth, currentYear);
 }
+
 
 function addEvent() {
     oldFormRemove();
